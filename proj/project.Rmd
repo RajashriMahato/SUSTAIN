@@ -1,0 +1,50 @@
+---
+title: "Proj1"
+author: "Saadhikha Shree S"
+date: "26/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Wind Energy
+
+
+```{r}
+data <- read.csv("wind_energy.csv")
+data <- data[ -c(24:27) ]
+state <- table(data$t_state)
+pie(state,main = "States", ylab = "frequency",col=c("blue","yellow","green","pink","orange","red","black","white","violet","maroon","brown","magenta"))
+
+```
+
+```{r}
+data1 <- na.omit(data)
+## drop unnecessary columns
+library(dplyr)
+data1 <- sample_n(data1,500)
+plot(data$t_cap, data$t_rd, main='Relationship between turbine capacity and turbine rotor diameter')
+cor(data1$t_cap,data1$t_rd)
+## strong positive correlation
+```
+
+## Increase in the count of turbines in the US
+
+```{r}
+library(ggplot2)
+ggplot(data,aes(y=p_year))+geom_histogram(bins=40) +coord_flip()+ggtitle("Turbines functioning in a particular year")+labs(x="count",y="Year")
+```
+
+# Hydro Energy
+```{r}
+library(openxlsx)
+datah <- read.xlsx("Plant_Database.xlsx")
+region <- table(datah$Region)
+pie(region,main = "Regional distribution of hydro power plants around the world", ylab = "Number of plants",col=c("Red","yellow","maroon","orange","red","green","violet","blue"))
+
+```
+
+
+
